@@ -1,0 +1,146 @@
+/* CORREÇÕES GERAIS E ESTILO BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: transparent; /* Permite que o fundo animado seja visto */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Adicionado para evitar barras de rolagem da animação */
+}
+
+main {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* NOVO: Centraliza todos os elementos verticalmente no Main */
+    
+    background: rgba(0, 0, 0, 0.7); 
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(4, 35, 175, 0.3); 
+    color: rgb(14, 30, 168); 
+    z-index: 10; 
+    position: relative;
+}
+
+/* Ajustes para o texto principal e o parágrafo de resultado */
+h1 {
+    color: #fffdfd; /* Mantendo a cor do seu tema para o título */
+    margin-bottom: 10px;
+}
+
+#personagemSorteado {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    min-height: 1.5em; /* Garante que o espaço para o texto seja consistente */
+}
+
+/* Estilo para o botão */
+#rollButton {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background-color: #070303; /* Cor principal do seu tema */
+    color: rgb(255, 255, 255);
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#rollButton:hover {
+    background-color: #120fce;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+.container-resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    
+    /* FIXA A ALTURA MÁXIMA PARA PARAR O PULO */
+    /* Ajuste 250px se for muito grande ou pequeno para suas imagens mais altas. */
+    height: 250px; 
+    
+    /* Garante que o conteúdo fique no topo do espaço reservado */
+    justify-content: flex-start; 
+}
+/* Estilo para a imagem do personagem */
+img {
+    width: 100%; /* Largura da imagem 100% dentro do seu contêiner */
+    max-width: 300px; /* Limita a largura máxima da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    transition: transform 0.5s ease-out; /* Transição para quando a imagem muda */
+    /* Removido o 'height: 50vh;' para evitar que a imagem fique muito grande */
+}
+
+/* Efeito ao aparecer */
+img.mostrar {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* ============== FUNDO ANIMADO (ADICIONAL) ============== */
+
+.background-animated {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,#FF5733, #000000, #87CEEB); /* Gradiente de roxo escuro */
+    overflow: hidden;
+    z-index: 0; /* Coloca o fundo atrás de todo o seu conteúdo */
+}
+
+/* Geração e Estilização das Partículas (Estrelas) */
+.background-animated li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2); 
+    animation: animate 25s linear infinite; 
+    bottom: -150px; 
+    border-radius: 50%; /* <--- ADICIONE OU VERIFIQUE ESTA LINHA */
+}
+
+/* Posições e tamanhos aleatórios para as estrelas */
+.background-animated li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 15s; background: rgba(11, 15, 24, 0.5); }
+.background-animated li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+.background-animated li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; animation-duration: 20s; }
+.background-animated li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 10s; background: rgba(119, 6, 6, 0.8); }
+.background-animated li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; animation-duration: 14s; }
+.background-animated li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; animation-duration: 24s; background: rgba(11, 55, 58, 0.3); }
+.background-animated li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; animation-duration: 35s; }
+.background-animated li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+.background-animated li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+.background-animated li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; background: rgba(250, 252, 252, 0.6); }
+
+/* A animação: move as estrelas para cima e as faz desaparecer (opacidade 0) */
+@keyframes animate {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
